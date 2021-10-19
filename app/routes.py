@@ -2,13 +2,7 @@ from flask import Blueprint, jsonify
 
 
 # syntax for instantiating a blueprint
-hello_world_bp = Blueprint("hello_wolrd", __name__)
 dog_bp = Blueprint("dog", __name__, url_prefix="/dogs")
-
-
-@hello_world_bp.route("/hello-world", methods=["GET"])
-def hello_world():
-    return "hello world!"
 
 
 class Dog:
@@ -19,7 +13,7 @@ class Dog:
         self.tricks = tricks or []
 
     def to_dict(self):
-        tricks = "No tricks" if not self.tricks else self.tricks
+        tricks = self.tricks or "No Tricks"
         return {
             "id": self.id,
             "name": self.name,
