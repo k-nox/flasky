@@ -7,4 +7,6 @@ def create_app():
     from .routes import dog_bp
     app.register_blueprint(dog_bp)
 
+    from .routes import cat_bp
+    app.register_blueprint(cat_bp)
     return app

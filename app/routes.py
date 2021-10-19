@@ -1,8 +1,24 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, json, jsonify
 
 
 # syntax for instantiating a blueprint
 dog_bp = Blueprint("dog", __name__, url_prefix="/dogs")
+cat_bp = Blueprint("cat", __name__, url_prefix="/cats")
+
+
+class Cat:
+    def __init__(self, id, name, color, personality):
+        self.id = id
+        self.name = name
+        self.color = color
+        self.personality = personality
+
+
+cats = [
+    Cat(1, "Muna", "black", "mischeivious"),
+    Cat(2, "Matthew", "spotted", "cuddly"),
+    Cat(3, "George", "gray", "sassy")
+]
 
 
 class Dog:
@@ -29,6 +45,14 @@ dogs = [
 ]
 
 
+# get all cats
+@cat_bp.route("", methods=["GET"])
+def handle_cats():
+    cats_response = [vars(cat) for cat in cats]
+    return jsonify(cats_response)
+
+
+# get all dogs
 @dog_bp.route("", methods=["GET"])
 def handle_dogs():
     dogs_response = []
@@ -38,9 +62,11 @@ def handle_dogs():
     return jsonify(dogs_response)
 
 
+# get one dog
 @dog_bp.route("/<dog_id>", methods=["GET"])
 def handle_dog(dog_id):
     dog_id = int(dog_id)
     for dog in dogs:
         if dog.id == dog_id:
             return dog.to_dict()
+    return {"error": "Dog not found"}, 404
