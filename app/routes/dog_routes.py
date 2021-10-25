@@ -5,30 +5,6 @@ from flask import Blueprint, jsonify
 dog_bp = Blueprint("dog", __name__, url_prefix="/dogs")
 
 
-class Dog:
-    def __init__(self, id, name, breed, tricks=None):
-        self.id = id
-        self.name = name
-        self.breed = breed
-        self.tricks = tricks or []
-
-    def to_dict(self):
-        tricks = self.tricks or "No Tricks"
-        return {
-            "id": self.id,
-            "name": self.name,
-            "breed": self.breed,
-            "tricks": tricks
-        }
-
-
-dogs = [
-    Dog(1, "mac", "greyhound"),
-    Dog(2, "sparky", "schnauzer"),
-    Dog(3, "teddy", "golden retriever")
-]
-
-
 # get all dogs
 @dog_bp.route("", methods=["GET"])
 def handle_dogs():
