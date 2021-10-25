@@ -22,4 +22,7 @@ def create_app():
 
     from .routes.cat_routes import cat_bp
     app.register_blueprint(cat_bp)
+
+    from app.models.dog import Dog
+
     return app
