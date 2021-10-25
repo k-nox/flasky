@@ -1,4 +1,4 @@
-from flask import Blueprint, json, jsonify
+from flask import Blueprint, jsonify
 
 
 # syntax for instantiating a blueprint
